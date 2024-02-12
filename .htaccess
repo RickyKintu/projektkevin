@@ -1,0 +1,35 @@
+# Enable rewrite engine
+RewriteEngine On
+
+# Set the base directory for the rewrite rules
+#RewriteBase /kevin/
+
+# Optional: Redirect www to non-www (or vice-versa)
+#RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# URLs in the format: videos/title-slug-id or videos/title-slug-id/
+RewriteRule ^videos/([a-zA-Z0-9-]+)-([0-9]+)/?$ video.php?title=$1&id=$2 [L,QSA]
+
+RewriteRule ^video/([a-zA-Z0-9-]+)-([0-9]+)/?$ /videos/$1-$2 [R=301,L,QSA]
+
+RewriteRule ^page/([0-9]+)/?$ index.php?page=$1 [NC,L]
+
+RewriteRule ^search/([a-zA-Z0-9-]+)/?$ search.php?search=$1 [L,QSA]
+
+RewriteRule ^search/([a-zA-Z0-9-]+)/page/([0-9]+)/?$ search.php?search=$1&page=$2 [L,QSA]
+
+RewriteRule ^articles/?$ articles.php [L,QSA]
+
+RewriteRule ^articles/([a-zA-Z0-9-]+)-([0-9]+)/?$ article.php?title=$1&id=$2 [L,QSA]
+
+RewriteRule ^top-videos/?$ top_videos.php [L,QSA]
+
+#Handling of 404 errors
+# ErrorDocument 404 /kevin/404-page.html
+
+#Deny access to sensitive files and directories
+#<FilesMatch "\.(htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
+#Order Allow,Deny
+#Deny from all
+#</FilesMatch>
